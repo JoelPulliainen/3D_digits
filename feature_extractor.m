@@ -1,7 +1,13 @@
 function [out,final] = feature_extractor(as)
+
+    % Init the matrix
     dimensions = zeros(30,30);
+
+    % Normalize values
     C = normalize(as,'range');
     C = [C(:,1) C(:,2)];
+
+    % Turn into matrix form
     for x = 1:size(C,1)
         for y = 1:size(C,2)
             eval(y) = C(x,y);
@@ -9,7 +15,8 @@ function [out,final] = feature_extractor(as)
         end
         dimensions(eval(2),eval(1)) = dimensions(eval(2),eval(1))+1;
     end
-    %dimensions = normalize(dimensions,'range');
+
+    % Remove points with too few "hits"
     for x = 1:size(dimensions,1)
         for y = 1:size(dimensions,2)
             if dimensions(x,y) > 20
@@ -19,9 +26,11 @@ function [out,final] = feature_extractor(as)
             end
         end
 
-    end    
+    end
+    % Flip to make it easier to inspect
     final = flip(final);
+
+    % Flatten for the MLP
     out = reshape(final, [], 1);
-%     dimensions = flip(dimensions);
-%     out = reshape(dimensions, [], 1);
+
 end

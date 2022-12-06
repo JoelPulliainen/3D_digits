@@ -1,26 +1,35 @@
-function [confidence,predicted_class] = digit_classify(testdata)
+function C = digit_classify(testdata)
 
+    % Get the weights of the neurons
     load weights.mat
-    testdata = feature_enhancer2(testdata);
+
+    % Enhance, add and extract the features
+    testdata = feature_enhancer(testdata);
     testdata_stats = feature_adder(testdata);
-    testdata = feature_extractor2d100(testdata);
+    testdata = feature_extractor(testdata);
     testdata = [testdata_stats;testdata];
+
+    % Add bias
     bias = 0.1;
     testdata = [testdata; bias];
 
-    vHidden = wHidden'*testdata; % first hidden layer net activation
-    yHidden = reLu(vHidden); % first hidden layer activation function relu
-    yHidden = [yHidden; bias]; % first hidden layer extended output
+    % Classify
+    % Feed forward values to first hidden layer, use activation function relu and add bias
+    Hidden1 = weightHidden1'*testdata;
+    Hidden1 = reLu(Hidden1);
+    Hidden1 = [Hidden1; bias];
 
-    vHidden2 = wHidden2'*yHidden; % second hidden layer net activation
-    yHidden2 = reLu(vHidden2); % second hidden layer activation function relu
-    yHidden2 = [yHidden2; bias]; % second hidden layer extended output
-   
-    vOutput = wOutput'*yHidden2; % output layer net activation
-    yOutput = soft(vOutput); % output layer softmax activation
+    % Feed forward values to second hidden layer, use activation function relu and add bias
+    Hidden2 = weightHidden2'*Hidden1;
+    Hidden2 = reLu(Hidden2);
+    Hidden2 = [Hidden2; bias];
 
-    [confidence, predicted_class] = max(yOutput, [], 1);
-    predicted_class = predicted_class-1; % -1 because indexing
+    % Feed forward values to output layer, use activation softmax
+    Output = weightOutput'*Hidden2;
+    Output = softmax(Output);
+
+    [confidence, predicted_class] = max(Output, [], 1);
+    C = predicted_class-1; % -1 because indexing
 
 end
 
