@@ -59,30 +59,30 @@ function [weightHidden1,weightHidden2,weightOutput] = train_main(traindata,train
             C = feature_extractor(C);
 
             % Create input vector with bias
-            extendedInput = [C1; C; bias];
+            input = [C1; C; bias];
 
             % Hot one encode class
 
-            trainOutput = zeros(10, size(extendedInput, 2));
+            trainOutput = zeros(10, size(input, 2));
             n_trainOutput = trainclass(j,i)
-            for a = 1:size(extendedInput, 2)
+            for a = 1:size(input, 2)
                 trainOutput(n_trainOutput+1, a) = 1;
             end
             % Pass values to train the classifier
-            [weightHidden1,weightHidden2,weightOutput] = mlp_train(extendedInput, trainOutput,maxEpochs,weightHidden1,weightHidden2,weightOutput,bias,eps,rho,J);
+            [weightHidden1,weightHidden2,weightOutput] = mlp_train(input, trainOutput,maxEpochs,weightHidden1,weightHidden2,weightOutput,bias,eps,rho,J);
         end
     end
 
 end
 
-function [weightHidden1,weightHidden2,weightOutput] = mlp_train(extendedInput,trainOutput,maxEpochs,weightHidden1,weightHidden2,weightOutput,bias,eps,rho,J)
+function [weightHidden1,weightHidden2,weightOutput] = mlp_train(input,trainOutput,maxEpochs,weightHidden1,weightHidden2,weightOutput,bias,eps,rho,J)
     t = 0;
     while 1 % Train until stop criteria is met
         t = t+1;
     
         % Feed-forward operation
         % Feed forward values to first hidden layer, use activation function relu and add bias
-        Hidden1 = weightHidden1'*extendedInput;
+        Hidden1 = weightHidden1'*input;
         Hidden1 = reLu(Hidden1);
         Hidden1 = [Hidden1; bias];
 
@@ -130,7 +130,7 @@ function [weightHidden1,weightHidden2,weightOutput] = mlp_train(extendedInput,tr
 
         deltaWeightOutput = -rho * Hidden2 * deltaOutput';
         deltaWeightHidden2 = -rho * Hidden1* deltaHidden2';
-        deltaWeightHidden1 = -rho * extendedInput* deltaHidden1';
+        deltaWeightHidden1 = -rho * input* deltaHidden1';
         
         % Update weights
         weightOutput = weightOutput + deltaWeightOutput;
