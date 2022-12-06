@@ -7,6 +7,10 @@ a = cell2mat(data(6,82));
 C = a.pos;
 function ed = plotter(C)
 
+    % Plot a N x 3 dataset
+    % Creates 2d and 3d plots of the original data
+    % Creates also 2d and 3d plots of the enhanced data
+
     C1 = feature_enhancer(C);
     
     figure('name','original')

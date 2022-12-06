@@ -1,5 +1,15 @@
 function C = digit_classify(testdata)
 
+    % Classify digits written with LeapMotion sensor
+    % Input N x 3 points
+    % Output C digit
+    % Adds data to the original to make it 1000x3 matrix
+    % Calculate distinct features of digits
+    % Create 30x30 matrix that represents the digit
+    % Flatten the 30x30 matrix and feed it to a MLP with 2 hidden layers
+    % Output a prediction of the digit
+
+
     % Get the weights of the neurons
     load weights.mat
 
