@@ -1,11 +1,14 @@
 close all
-
+clear all
+clc
 [data,class] = data_collect();
 
 % Plot figure
-a = cell2mat(data(6,82));
+a = cell2mat(data(2,100));
 C = a.pos;
-function ed = plotter(C)
+C = plotter(C)
+[out,final] = feature_extractor(C)
+function C1 = plotter(C)
 
     % Plot a N x 3 dataset
     % Creates 2d and 3d plots of the original data
