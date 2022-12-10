@@ -33,9 +33,9 @@ function [best_weightHidden1,best_weightHidden2,best_weightOutput] = train_main(
     
     % Initialisation
     hidden = 500; % number of the first hidden layer neurons
-    hidden2 = 500; % number of the second hidden layer neurons
+    hidden2 = 250; % number of the second hidden layer neurons
     J = zeros(1,maxEpochs); % loss function value vector initialisation
-    rho = 0.0001; % learning rate
+    rho = 0.0025; % learning rate
     eps = 1e-2;
     bias = 0;
 
@@ -132,7 +132,7 @@ function [best_weightHidden1,best_weightHidden2,best_weightOutput] = train_main(
         J(t)
         
         % Calculate accuracy after every Epoch
-        [~,Accuracy_validation] = mlp_test(validationdata,validationclass,weightHidden1,weightHidden2,weightOutput)
+        [~,Accuracy_validation] = mlp_test_2(validationdata,validationclass,weightHidden1,weightHidden2,weightOutput)
         if Accuracy_validation > best_accuracy
             best_weightHidden1 = weightHidden1;
             best_weightHidden2 = weightHidden2;
