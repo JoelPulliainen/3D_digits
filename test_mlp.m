@@ -1,6 +1,6 @@
 clc
 clear all
-close 
+close all
 
 %% Data collection and training set new values
 

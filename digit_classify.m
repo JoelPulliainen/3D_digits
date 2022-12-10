@@ -9,7 +9,6 @@ function C = digit_classify(testdata)
     % Flatten the 30x30 matrix and feed it to a MLP with 2 hidden layers
     % Output a prediction of the digit
 
-
     % Get the weights of the neurons
     load weights.mat
 
@@ -20,7 +19,7 @@ function C = digit_classify(testdata)
     testdata = [testdata_stats;testdata];
 
     % Add bias
-    bias = 0.1;
+    bias = 0;
     testdata = [testdata; bias];
 
     % Classify
