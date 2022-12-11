@@ -1,6 +1,6 @@
 clc
 clear all
-close 
+close all
 
 
 %% Data collection and training set new values
@@ -29,11 +29,11 @@ Predicted_digit = digit_classify(pos)
 
 function [best_weightHidden1,best_weightHidden2,best_weightOutput] = train_main(traindata,trainclass,validationdata,validationclass)
 
-    maxEpochs = 200;
+    maxEpochs = 100;
     
     % Initialisation
     hidden = 500; % number of the first hidden layer neurons
-    hidden2 = 250; % number of the second hidden layer neurons
+    hidden2 = 500; % number of the second hidden layer neurons
     J = zeros(1,maxEpochs); % loss function value vector initialisation
     rho = 0.00025; % learning rate
     eps = 1e-2;
@@ -47,7 +47,7 @@ function [best_weightHidden1,best_weightHidden2,best_weightOutput] = train_main(
     % Initialize inputs and outputs
     inputv = cell(10,80);
     outputv = cell(10,80);
-
+    
     % Initialize inputs
 
     for i = 1:size(traindata,2)
@@ -72,6 +72,7 @@ function [best_weightHidden1,best_weightHidden2,best_weightOutput] = train_main(
             for a = 1:size(input, 2)
                 trainOutput(n_trainOutput+1, a) = 1;
             end
+
             % Store hot one encoded classes to a cell array
             outputv{j,i} = trainOutput;
         end
