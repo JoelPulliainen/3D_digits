@@ -35,7 +35,7 @@ function [best_weightHidden1,best_weightHidden2,best_weightOutput] = train_main(
     hidden = 500; % number of the first hidden layer neurons
     hidden2 = 500; % number of the second hidden layer neurons
     J = zeros(1,maxEpochs); % loss function value vector initialisation
-    rho = 0.00025; % learning rate
+    rho = 0.0025; % learning rate
     eps = 1e-2;
     bias = 0;
 
